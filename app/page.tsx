@@ -4,6 +4,7 @@ import React from 'react';
 import { Layout, Space } from 'antd';
 import CustomHeader from './components/header/Header';
 import CreateOrder from './pages/createOrder/CreateOrder';
+import AddPackages from './pages/addPackages/AddPackages';
 const { Header, Footer, Sider, Content } = Layout;
 
 const headerStyle: React.CSSProperties = {
@@ -30,7 +31,8 @@ const App: React.FC = () => (
         <CustomHeader />
       </Header>
       <Content style={contentStyle}>
-        <CreateOrder />
+        {/* <CreateOrder /> */}
+        <AddPackages />
       </Content>
     </Layout>
   </Space>
