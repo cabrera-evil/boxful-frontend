@@ -3,17 +3,34 @@
 import React from 'react';
 import { Layout, Space } from 'antd';
 import CustomHeader from './components/header/Header';
-import Form from './pages/form/Form';
+import CreateOrder from './pages/createOrder/CreateOrder';
 const { Header, Footer, Sider, Content } = Layout;
+
+const headerStyle: React.CSSProperties = {
+  textAlign: 'center',
+  color: '#fff',
+  height: 64,
+  paddingInline: 50,
+  lineHeight: '64px',
+  backgroundColor: '#ffffff',
+};
+
+const contentStyle: React.CSSProperties = {
+  textAlign: 'center',
+  minHeight: 120,
+  lineHeight: '120px',
+  color: '#fff',
+  backgroundColor: '#DEE1E7',
+};
 
 const App: React.FC = () => (
   <Space direction="vertical" style={{ width: '100%' }} size={[0, 48]}>
     <Layout>
-      <Header style={{ backgroundColor: 'white' }}>
+      <Header style={headerStyle}>
         <CustomHeader />
       </Header>
-      <Content>
-        <Form />
+      <Content style={contentStyle}>
+        <CreateOrder />
       </Content>
     </Layout>
   </Space>
