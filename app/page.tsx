@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { Layout, Space } from 'antd';
-import CustomHeader from './components/header/Header';
-import CreateOrder from './pages/createOrder/CreateOrder';
-import AddPackages from './pages/addPackages/AddPackages';
+import CustomHeader from './components/Header';
+import CreateOrder from './pages/CreateOrder/CreateOrder';
+import AddPackages from './pages/AddPackages/AddPackages';
 const { Header, Footer, Sider, Content } = Layout;
 
 const headerStyle: React.CSSProperties = {
