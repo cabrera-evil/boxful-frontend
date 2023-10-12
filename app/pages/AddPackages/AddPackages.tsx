@@ -1,16 +1,17 @@
 import React from 'react';
-import { Typography } from 'antd';
+import { Button, Typography } from 'antd';
 import PackageDetails from './components/PackageDetails';
 import PackageList from './components/PackageList';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 const { Title, Text } = Typography;
 
 const containerStyle: React.CSSProperties = {
   display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'flex-start',
+  flexDirection: 'column', // Make it a column layout
+  alignItems: 'center', // Center content horizontally
+  justifyContent: 'center', // Center content vertically
   height: '100vh',
-  marginTop: '20px',
 };
 
 const titleTextStyle: React.CSSProperties = {
@@ -23,6 +24,32 @@ const textStyle: React.CSSProperties = {
   color: '#7682A0',
 };
 
+const buttonContainerStyle: React.CSSProperties = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  width: '100%',
+};
+
+const continueButtonStyle: React.CSSProperties = {
+  background: '#4270F9',
+  color: '#FFFFFF',
+  width: '45%',
+  borderTopLeftRadius: 8,
+  borderTopRightRadius: 8,
+  border: '2px #2F5CDF solid',
+  marginTop: '2rem',
+};
+
+const backButtonStyle: React.CSSProperties = {
+  background: '#FFFFFF',
+  color: '#4270F9',
+  width: '45%',
+  borderTopLeftRadius: 8,
+  borderTopRightRadius: 8,
+  border: '2px #2F5CDF solid',
+  marginTop: '2rem',
+};
+
 export default function AddPackages() {
   return (
     <div style={containerStyle}>
@@ -33,9 +60,17 @@ export default function AddPackages() {
         <Text style={textStyle}>
           Dale una ventaja competitiva a tu negocio con entregas el mismo día (Área Metropolitana) y el día siguiente a nivel nacional.
         </Text>
-        <div>
+        <div style={{ backgroundColor: 'white' }}>
           <PackageDetails />
-          {/* <PackageList /> */}
+          <PackageList />
+          <div style={buttonContainerStyle}>
+            <Button type="primary" style={backButtonStyle} htmlType="submit">
+              <LeftOutlined /> Regresar
+            </Button>
+            <Button type="primary" style={continueButtonStyle} htmlType="submit">
+              Siguiente <RightOutlined />
+            </Button>
+          </div>
         </div>
       </div>
     </div>

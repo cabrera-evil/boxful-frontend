@@ -38,27 +38,27 @@ export default function PackageDetails() {
     <Form layout="vertical" style={formStyle}>
       <Row gutter={16}>
         <Col span={3}>
-          <Form.Item label="Largo">
+          <Form.Item label="Largo" name="large" rules={[{ required: true, message: 'This field is required' }]}>
             <Input placeholder="Largo" style={inputStyle} />
           </Form.Item>
         </Col>
         <Col span={3}>
-          <Form.Item label="Alto" name="height">
+          <Form.Item label="Alto" name="height" rules={[{ required: true, message: 'This field is required' }]}>
             <Input placeholder="Alto" style={inputStyle} />
           </Form.Item>
         </Col>
         <Col span={3}>
-          <Form.Item label="Ancho" name="width">
+          <Form.Item label="Ancho" name="width" rules={[{ required: true, message: 'This field is required' }]}>
             <Input placeholder="Ancho" style={inputStyle} />
           </Form.Item>
         </Col>
         <Col span={4}>
-          <Form.Item label="Peso en libras" name="weight">
+          <Form.Item label="Peso en libras" name="weight" rules={[{ required: true, message: 'This field is required' }]}>
             <Input placeholder="Peso" style={inputStyle} />
           </Form.Item>
         </Col>
         <Col span={4}>
-          <Form.Item label="Contenido" name="content">
+          <Form.Item label="Contenido" name="content" rules={[{ required: true, message: 'This field is required' }]}>
             <Input placeholder="Contenido" style={inputStyle} />
           </Form.Item>
         </Col>
