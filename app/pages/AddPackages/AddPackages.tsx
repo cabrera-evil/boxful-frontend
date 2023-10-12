@@ -1,8 +1,10 @@
 import React from 'react';
 import { Button, Typography } from 'antd';
 import PackageDetails from './components/PackageDetails';
-import PackageList from './components/PackageList';
+import PackageCard from './components/PackageCard';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { IOrder } from '../CreateOrder/interface/Order.interface';
+import { IPackage } from './interface/Package.interface';
 
 const { Title, Text } = Typography;
 
@@ -62,13 +64,12 @@ export default function AddPackages() {
         </Text>
         <div style={{ backgroundColor: 'white' }}>
           <PackageDetails />
-          <PackageList />
           <div style={buttonContainerStyle}>
             <Button type="primary" style={backButtonStyle} htmlType="submit">
               <LeftOutlined /> Regresar
             </Button>
             <Button type="primary" style={continueButtonStyle} htmlType="submit">
-              Siguiente <RightOutlined />
+              Enviar <RightOutlined />
             </Button>
           </div>
         </div>

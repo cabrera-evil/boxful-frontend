@@ -5,6 +5,7 @@ import { Layout, Space } from 'antd';
 import CustomHeader from './components/Header';
 import CreateOrder from './pages/CreateOrder/CreateOrder';
 import AddPackages from './pages/AddPackages/AddPackages';
+import axios from 'axios';
 const { Header, Footer, Sider, Content } = Layout;
 
 const headerStyle: React.CSSProperties = {
@@ -23,6 +24,8 @@ const contentStyle: React.CSSProperties = {
   color: '#fff',
   backgroundColor: '#DEE1E7',
 };
+
+axios.defaults.baseURL = 'http://localhost:3000/api'
 
 const App: React.FC = () => (
   <Space direction="vertical" style={{ width: '100%' }} size={[0, 48]}>

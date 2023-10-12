@@ -1,6 +1,11 @@
 import React from 'react';
-import { Input, Form, Button, Col, Row } from 'antd';
+import { Form, Input, Button, Row, Col } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
+import { IPackage } from '../interface/Package.interface';
+
+interface PackageListProps {
+  data: IPackage;
+}
 
 const formStyle: React.CSSProperties = {
   backgroundColor: 'white',
@@ -29,33 +34,33 @@ const deleteButtonStyle: React.CSSProperties = {
   right: '16px',
 };
 
-export default function PackageList() {
+const PackageCard: React.FC<PackageListProps> = ({ data }) => {
   return (
     <Form layout="vertical" style={formStyle}>
       <Row gutter={16}>
         <Col span={4}>
-          <Form.Item label="Peso en libras" name="weight">
-            <Input placeholder="Peso" style={inputStyle} disabled={true} />
+          <Form.Item label="Peso en libras">
+            <Input placeholder="Peso" style={inputStyle} disabled={true} value={data.weightInPounds} />
           </Form.Item>
         </Col>
         <Col span={4}>
-          <Form.Item label="Contenido" name="content">
-            <Input placeholder="Contenido" style={inputStyle} disabled={true} />
+          <Form.Item label="Contenido">
+            <Input placeholder="Contenido" style={inputStyle} disabled={true} value={data.content} />
           </Form.Item>
         </Col>
         <Col span={3}>
           <Form.Item label="Largo">
-            <Input placeholder="Largo" style={inputStyle} disabled={true} />
+            <Input placeholder="Largo" style={inputStyle} disabled={true} value={data.length} />
           </Form.Item>
         </Col>
         <Col span={3}>
-          <Form.Item label="Ancho" name="width">
-            <Input placeholder="Ancho" style={inputStyle} disabled={true} />
+          <Form.Item label="Ancho">
+            <Input placeholder="Ancho" style={inputStyle} disabled={true} value={data.width} />
           </Form.Item>
         </Col>
         <Col span={3}>
-          <Form.Item label="Alto" name="height">
-            <Input placeholder="Alto" style={inputStyle} disabled={true} />
+          <Form.Item label="Alto">
+            <Input placeholder="Alto" style={inputStyle} disabled={true} value={data.height} />
           </Form.Item>
         </Col>
       </Row>
@@ -65,3 +70,5 @@ export default function PackageList() {
     </Form>
   );
 }
+
+export default PackageCard;
