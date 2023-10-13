@@ -1,7 +1,10 @@
+'use client'
+
 import React, { useState } from 'react';
 import { Typography, Input, Form, DatePicker, Row, Col, Button, Select, notification } from 'antd';
 import './helpers/CustomDatePicker.css';
 import { EnvironmentOutlined, RightOutlined } from '@ant-design/icons';
+import { useRouter } from 'next/navigation'
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -50,7 +53,7 @@ const textStyle: React.CSSProperties = {
   color: '#7682A0',
 };
 
-const departments: string[] = ['San Salvador', 'Santa Ana', 'San Miguel', 'La Libertad', 'Ahuachapán']; // Add more if needed
+const departments: string[] = ['San Salvador', 'Santa Ana', 'San Miguel', 'La Libertad', 'Ahuachapán'];
 const municipalities: { [key: string]: string[] } = {
   'San Salvador': ['San Salvador', 'Soyapango', 'Santa Tecla', 'Apopa'],
   'Santa Ana': ['Santa Ana', 'Metapán', 'Chalchuapa', 'Atiquizaya'],
@@ -72,20 +75,30 @@ export default function CreateOrder() {
   const [selectedDepartment, setSelectedDepartment] = useState<string>(departments[0]);
   const [selectedMunicipality, setSelectedMunicipality] = useState<string>(municipalities[departments[0]][0]);
   const [selectedCountry, setSelectedCountry] = useState<{ label: string; value: string }>(centralAmericanCountries[0]);
+  const router = useRouter();
 
   const handleSubmit = (values: any) => {
     if (isFormComplete(values)) {
-      // Format the date to '2023-10-15T14:00:00Z' format
       const formattedDate = values.scheduledDate.toISOString();
-  
-      // Replace the original date with the formatted date
       values.scheduledDate = formattedDate;
-  
-      console.log('Form data:', values);
-      notification.success({
-        message: 'Form Submitted',
-        description: 'Data has been logged successfully!',
-      });
+
+      // Order template
+      const order = {
+        pickupAddress: values.pickupAddress,
+        scheduledDate: values.scheduledDate,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        phone: values.phone,
+        deliveryAddress: values.deliveryAddress,
+        department: values.department,
+        municipality: values.municipality,
+        referencePoint: values.referencePoint,
+        specialInstructions: values.specialInstructions,
+        items: [],
+      }
+      localStorage.setItem('orderData', JSON.stringify(order));
+      router.push('/AddPackages');
     } else {
       notification.error({
         message: 'Form Error',

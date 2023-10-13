@@ -1,16 +1,19 @@
-import React from 'react';
-import { Button, Typography } from 'antd';
+'use client'
+
+import React, { useState } from 'react';
+import { Button, Typography, notification } from 'antd';
 import PackageDetails from './components/PackageDetails';
-import PackageList from './components/PackageList';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { useRouter } from 'next/navigation';
+import { OrderService } from '../CreateOrder/services/Order.service';
 
 const { Title, Text } = Typography;
 
 const containerStyle: React.CSSProperties = {
   display: 'flex',
-  flexDirection: 'column', // Make it a column layout
-  alignItems: 'center', // Center content horizontally
-  justifyContent: 'center', // Center content vertically
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
   height: '100vh',
 };
 
@@ -51,6 +54,41 @@ const backButtonStyle: React.CSSProperties = {
 };
 
 export default function AddPackages() {
+  const [submittedPackageData, setSubmittedPackageData] = useState<any | undefined>();
+  const router = useRouter();
+  const orderService = new OrderService();
+
+  function handlePackageData(data: any) {
+    setSubmittedPackageData(data);
+  }
+
+  function handleBack(event: React.MouseEvent<HTMLElement>): void {
+    router.back();
+  }
+
+  function handleSend(event: React.MouseEvent<HTMLElement>): void {
+    if (submittedPackageData) {
+      const packageToSend = {
+        id: submittedPackageData._id,
+        quantity: 1,
+      };
+      const order = JSON.parse(localStorage.getItem('orderData') || '[]');
+      order.items.push(packageToSend);
+      orderService.createOrder(order);
+
+      notification.success({
+        message: '¡Orden creada!',
+        description: 'Tu orden ha sido creada exitosamente.',
+      });
+    } else {
+      notification.error({
+        message: '¡Error!',
+        description: 'No se ha podido crear tu orden.',
+      });
+    }
+  }
+
+
   return (
     <div style={containerStyle}>
       <div>
@@ -61,14 +99,13 @@ export default function AddPackages() {
           Dale una ventaja competitiva a tu negocio con entregas el mismo día (Área Metropolitana) y el día siguiente a nivel nacional.
         </Text>
         <div style={{ backgroundColor: 'white' }}>
-          <PackageDetails />
-          <PackageList />
+          <PackageDetails onPackageData={handlePackageData} />
           <div style={buttonContainerStyle}>
-            <Button type="primary" style={backButtonStyle} htmlType="submit">
+            <Button type="primary" style={backButtonStyle} htmlType="submit" onClick={handleBack}>
               <LeftOutlined /> Regresar
             </Button>
-            <Button type="primary" style={continueButtonStyle} htmlType="submit">
-              Siguiente <RightOutlined />
+            <Button type="primary" style={continueButtonStyle} htmlType="submit" onClick={handleSend}>
+              Enviar <RightOutlined />
             </Button>
           </div>
         </div>

@@ -2,10 +2,9 @@
 
 import React from 'react';
 import { Layout, Space } from 'antd';
-import CustomHeader from './components/Header';
-import CreateOrder from './pages/CreateOrder/CreateOrder';
-import AddPackages from './pages/AddPackages/AddPackages';
-const { Header, Footer, Sider, Content } = Layout;
+import CustomHeader from './Header/Header';
+import CreateOrder from './CreateOrder/page';
+const { Header, Content } = Layout;
 
 const headerStyle: React.CSSProperties = {
   textAlign: 'center',
@@ -31,8 +30,7 @@ const App: React.FC = () => (
         <CustomHeader />
       </Header>
       <Content style={contentStyle}>
-        {/* <CreateOrder /> */}
-        <AddPackages />
+        <CreateOrder />
       </Content>
     </Layout>
   </Space>
