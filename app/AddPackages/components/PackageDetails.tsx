@@ -37,7 +37,11 @@ const buttonStyle: React.CSSProperties = {
   alignSelf: 'flex-end',
 };
 
-export default function PackageDetails() {
+interface PackageDetailsProps {
+  onPackageData: (data: any) => void;
+}
+
+export default function PackageDetails({ onPackageData }: PackageDetailsProps) {
   const packageService = new PackageService();
   const [packages, setPackages] = useState<any[]>([]);
   const [selectedPackage, setSelectedPackage] = useState<string>('');
@@ -62,18 +66,19 @@ export default function PackageDetails() {
     setSelectedPackage('');
 
     // Render package data with <PackageCard />
+    onPackageData(values);
     setSubmittedData(values);
   }
   const handlePackageSelect = (value: string) => {
     const selectedPackageData = packages.find((data) => data.content === value);
-  
+
     form.setFieldsValue({
       length: selectedPackageData?.length || undefined,
       weightInPounds: selectedPackageData?.weightInPounds || undefined,
       height: selectedPackageData?.height || undefined,
       width: selectedPackageData?.width || undefined,
     });
-  
+
     setSelectedPackage(value);
   };
 

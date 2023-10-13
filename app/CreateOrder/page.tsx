@@ -84,6 +84,9 @@ export default function CreateOrder() {
   
       // Replace the original date with the formatted date
       values.scheduledDate = formattedDate;
+      
+      // Save to local storage
+      localStorage.setItem('orderData', JSON.stringify(values));
 
       // Redirect to packages
       router.push('/AddPackages');

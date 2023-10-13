@@ -1,11 +1,11 @@
 'use client'
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Typography, notification } from 'antd';
 import PackageDetails from './components/PackageDetails';
-import PackageCard from './components/PackageCard';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/navigation';
+import { OrderService } from '../CreateOrder/services/Order.service';
 
 const { Title, Text } = Typography;
 
@@ -54,17 +54,37 @@ const backButtonStyle: React.CSSProperties = {
 };
 
 export default function AddPackages() {
+  const [submittedPackageData, setSubmittedPackageData] = useState<any | undefined>();
   const router = useRouter();
+  const orderService = new OrderService();
+
+  // Define una callback function para recibir datos de PackageDetails
+  function handlePackageData(data: any) {
+    setSubmittedPackageData(data);
+  }
 
   function handleBack(event: React.MouseEvent<HTMLElement>): void {
     router.back();
   }
 
   function handleSend(event: React.MouseEvent<HTMLElement>): void {
-    notification.success({
-      message: '¡Orden creada!',
-      description: 'Tu orden ha sido creada exitosamente.',
-    });
+    if (submittedPackageData) {
+      // Get from local storage and parse to JSON, then add the new package
+      const order = JSON.parse(localStorage.getItem('orderData') || '[]');
+      
+      console.log(order);
+      
+
+      notification.success({
+        message: '¡Orden creada!',
+        description: 'Tu orden ha sido creada exitosamente.',
+      });
+    } else {
+      notification.error({
+        message: '¡Error!',
+        description: 'No se ha podido crear tu orden.',
+      });
+    }
   }
 
   return (
@@ -77,7 +97,7 @@ export default function AddPackages() {
           Dale una ventaja competitiva a tu negocio con entregas el mismo día (Área Metropolitana) y el día siguiente a nivel nacional.
         </Text>
         <div style={{ backgroundColor: 'white' }}>
-          <PackageDetails />
+          <PackageDetails onPackageData={handlePackageData} />
           <div style={buttonContainerStyle}>
             <Button type="primary" style={backButtonStyle} htmlType="submit" onClick={handleBack}>
               <LeftOutlined /> Regresar
