@@ -1,10 +1,11 @@
+'use client'
+
 import React from 'react';
-import { Button, Typography } from 'antd';
+import { Button, Typography, notification } from 'antd';
 import PackageDetails from './components/PackageDetails';
 import PackageCard from './components/PackageCard';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import { IOrder } from '../CreateOrder/interface/Order.interface';
-import { IPackage } from './interface/Package.interface';
+import { useRouter } from 'next/navigation';
 
 const { Title, Text } = Typography;
 
@@ -53,6 +54,19 @@ const backButtonStyle: React.CSSProperties = {
 };
 
 export default function AddPackages() {
+  const router = useRouter();
+
+  function handleBack(event: React.MouseEvent<HTMLElement>): void {
+    router.back();
+  }
+
+  function handleSend(event: React.MouseEvent<HTMLElement>): void {
+    notification.success({
+      message: '¡Orden creada!',
+      description: 'Tu orden ha sido creada exitosamente.',
+    });
+  }
+
   return (
     <div style={containerStyle}>
       <div>
@@ -65,10 +79,10 @@ export default function AddPackages() {
         <div style={{ backgroundColor: 'white' }}>
           <PackageDetails />
           <div style={buttonContainerStyle}>
-            <Button type="primary" style={backButtonStyle} htmlType="submit">
+            <Button type="primary" style={backButtonStyle} htmlType="submit" onClick={handleBack}>
               <LeftOutlined /> Regresar
             </Button>
-            <Button type="primary" style={continueButtonStyle} htmlType="submit">
+            <Button type="primary" style={continueButtonStyle} htmlType="submit" onClick={handleSend}>
               Enviar <RightOutlined />
             </Button>
           </div>

@@ -1,7 +1,10 @@
+'use client'
+
 import React, { useState } from 'react';
 import { Typography, Input, Form, DatePicker, Row, Col, Button, Select, notification } from 'antd';
 import './helpers/CustomDatePicker.css';
 import { EnvironmentOutlined, RightOutlined } from '@ant-design/icons';
+import { useRouter } from 'next/navigation'
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -72,6 +75,7 @@ export default function CreateOrder() {
   const [selectedDepartment, setSelectedDepartment] = useState<string>(departments[0]);
   const [selectedMunicipality, setSelectedMunicipality] = useState<string>(municipalities[departments[0]][0]);
   const [selectedCountry, setSelectedCountry] = useState<{ label: string; value: string }>(centralAmericanCountries[0]);
+  const router = useRouter();
 
   const handleSubmit = (values: any) => {
     if (isFormComplete(values)) {
@@ -80,12 +84,9 @@ export default function CreateOrder() {
   
       // Replace the original date with the formatted date
       values.scheduledDate = formattedDate;
-  
-      console.log('Form data:', values);
-      notification.success({
-        message: 'Form Submitted',
-        description: 'Data has been logged successfully!',
-      });
+
+      // Redirect to packages
+      router.push('/AddPackages');
     } else {
       notification.error({
         message: 'Form Error',

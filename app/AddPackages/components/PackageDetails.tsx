@@ -62,7 +62,6 @@ export default function PackageDetails() {
     setSelectedPackage('');
 
     // Render package data with <PackageCard />
-    console.log(values);
     setSubmittedData(values);
   }
   const handlePackageSelect = (value: string) => {
