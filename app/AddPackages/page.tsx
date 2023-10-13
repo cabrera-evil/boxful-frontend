@@ -71,9 +71,11 @@ export default function AddPackages() {
     if (submittedPackageData) {
       // Get from local storage and parse to JSON, then add the new package
       const order = JSON.parse(localStorage.getItem('orderData') || '[]');
-      
-      console.log(order);
-      
+
+      // Add the new package to the order.items[]
+      order.items.push(submittedPackageData);
+
+      orderService.createOrder(order);
 
       notification.success({
         message: '¡Orden creada!',

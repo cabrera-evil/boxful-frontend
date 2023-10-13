@@ -3,7 +3,7 @@ import { IPackage } from "../interface/Package.interface";
 import { ApiResponse } from "@/app/models/ApiResponse.type";
 
 export class PackageService {
-    private readonly BASE_URL = '/package';
+    private readonly BASE_URL = 'http://localhost:3000/api/package';
 
     public async createPackage(packageData: IPackage): Promise<AxiosResponse> {
         return await axios.post(this.BASE_URL, packageData);

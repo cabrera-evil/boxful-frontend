@@ -84,9 +84,25 @@ export default function CreateOrder() {
   
       // Replace the original date with the formatted date
       values.scheduledDate = formattedDate;
+
+      // Order template
+      const order = {
+        pickupAddress: values.pickupAddress,
+        scheduledDate: values.scheduledDate,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        phone: values.phone,
+        deliveryAddress: values.deliveryAddress,
+        department: values.department,
+        municipality: values.municipality,
+        referencePoint: values.referencePoint,
+        specialInstructions: values.specialInstructions,
+        items: [],
+      }
       
       // Save to local storage
-      localStorage.setItem('orderData', JSON.stringify(values));
+      localStorage.setItem('orderData', JSON.stringify(order));
 
       // Redirect to packages
       router.push('/AddPackages');
