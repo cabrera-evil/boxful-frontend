@@ -65,12 +65,11 @@ export default function PackageDetails({ onPackageData }: PackageDetailsProps) {
     form.resetFields();
     setSelectedPackage('');
 
-    // Render package data with <PackageCard />
     onPackageData(values);
     setSubmittedData(values);
   }
-  const handlePackageSelect = (value: string) => {
-    const selectedPackageData = packages.find((data) => data.content === value);
+  const handlePackageSelect = (value: string, allPackages: any[]) => {
+    const selectedPackageData = allPackages.find((data) => data.content === value);
 
     form.setFieldsValue({
       length: selectedPackageData?.length || undefined,
@@ -78,9 +77,9 @@ export default function PackageDetails({ onPackageData }: PackageDetailsProps) {
       height: selectedPackageData?.height || undefined,
       width: selectedPackageData?.width || undefined,
     });
-
-    setSelectedPackage(value);
+    onPackageData({ content: value, _id: selectedPackageData?._id });
   };
+
 
   return (
     <div>
@@ -112,7 +111,7 @@ export default function PackageDetails({ onPackageData }: PackageDetailsProps) {
                 value={selectedPackage}
                 placeholder="Seleccione un contenido"
                 style={inputStyle}
-                onChange={handlePackageSelect}
+                onChange={(value) => handlePackageSelect(value, packages)}
               >
                 {packages.map((data) => (
                   <Option key={data._id} value={data.content}>
@@ -121,6 +120,7 @@ export default function PackageDetails({ onPackageData }: PackageDetailsProps) {
                 ))}
               </Select>
             </Form.Item>
+
           </Col>
         </Row>
         <Button type="default" style={buttonStyle} htmlType="submit">

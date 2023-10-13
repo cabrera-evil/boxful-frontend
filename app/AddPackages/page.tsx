@@ -11,9 +11,9 @@ const { Title, Text } = Typography;
 
 const containerStyle: React.CSSProperties = {
   display: 'flex',
-  flexDirection: 'column', // Make it a column layout
-  alignItems: 'center', // Center content horizontally
-  justifyContent: 'center', // Center content vertically
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
   height: '100vh',
 };
 
@@ -58,7 +58,6 @@ export default function AddPackages() {
   const router = useRouter();
   const orderService = new OrderService();
 
-  // Define una callback function para recibir datos de PackageDetails
   function handlePackageData(data: any) {
     setSubmittedPackageData(data);
   }
@@ -69,12 +68,12 @@ export default function AddPackages() {
 
   function handleSend(event: React.MouseEvent<HTMLElement>): void {
     if (submittedPackageData) {
-      // Get from local storage and parse to JSON, then add the new package
+      const packageToSend = {
+        id: submittedPackageData._id,
+        quantity: 1,
+      };
       const order = JSON.parse(localStorage.getItem('orderData') || '[]');
-
-      // Add the new package to the order.items[]
-      order.items.push(submittedPackageData);
-
+      order.items.push(packageToSend);
       orderService.createOrder(order);
 
       notification.success({
@@ -88,6 +87,7 @@ export default function AddPackages() {
       });
     }
   }
+
 
   return (
     <div style={containerStyle}>

@@ -53,7 +53,7 @@ const textStyle: React.CSSProperties = {
   color: '#7682A0',
 };
 
-const departments: string[] = ['San Salvador', 'Santa Ana', 'San Miguel', 'La Libertad', 'Ahuachapán']; // Add more if needed
+const departments: string[] = ['San Salvador', 'Santa Ana', 'San Miguel', 'La Libertad', 'Ahuachapán'];
 const municipalities: { [key: string]: string[] } = {
   'San Salvador': ['San Salvador', 'Soyapango', 'Santa Tecla', 'Apopa'],
   'Santa Ana': ['Santa Ana', 'Metapán', 'Chalchuapa', 'Atiquizaya'],
@@ -79,10 +79,7 @@ export default function CreateOrder() {
 
   const handleSubmit = (values: any) => {
     if (isFormComplete(values)) {
-      // Format the date to '2023-10-15T14:00:00Z' format
       const formattedDate = values.scheduledDate.toISOString();
-  
-      // Replace the original date with the formatted date
       values.scheduledDate = formattedDate;
 
       // Order template
@@ -100,11 +97,7 @@ export default function CreateOrder() {
         specialInstructions: values.specialInstructions,
         items: [],
       }
-      
-      // Save to local storage
       localStorage.setItem('orderData', JSON.stringify(order));
-
-      // Redirect to packages
       router.push('/AddPackages');
     } else {
       notification.error({
